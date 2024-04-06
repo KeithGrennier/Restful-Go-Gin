@@ -6,6 +6,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+/*
+Navigating code
+@Structs
+@main
+@functions
+*/
+
 // _standalone package rather than a library
 // _Store album data in memory
 // album data about record album.
@@ -26,6 +33,7 @@ var albums = []album{
 func main() {
 	router := gin.Default()
 	router.GET("/albums", getAlbums)
+	router.POST("/albums", postAlbums)
 
 	router.Run("localhost:8080")
 }
@@ -33,4 +41,19 @@ func main() {
 // getAlbums responds with list of all albums as json
 func getAlbums(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, albums)
+}
+
+// postAlbums adds album from json in request body.
+func postAlbums(c *gin.Context) {
+	var newAlbum album
+
+	// Call BindJSON to bind received JSON to
+	// newAlbum
+	if err := c.BindJSON(&newAlbum); err != nil {
+		return
+	}
+
+	// add new album to slice
+	albums = append(albums, newAlbum)
+	c.IndentedJSON(http.StatusCreated, newAlbum)
 }
