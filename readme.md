@@ -3,4 +3,5 @@ Link: [web-service-gin](https://go.dev/doc/tutorial/web-service-gin 'Restful Tut
 # Getting Started
 git clone /reponame/
 # Using this
-curl localhost:8080/albums
+- run exe located in web-service-gin/
+- user.py, interacts with the API
